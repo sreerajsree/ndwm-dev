@@ -1,107 +1,105 @@
-:root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-
-  --primary-glow: conic-gradient(
-    from 180deg at 50% 50%,
-    #16abff33 0deg,
-    #0885ff33 55deg,
-    #54d6ff33 120deg,
-    #0071ff33 160deg,
-    transparent 360deg
-  );
-  --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
-  );
-
-  --tile-start-rgb: 239, 245, 249;
-  --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(
-    #00000080,
-    #00000040,
-    #00000030,
-    #00000020,
-    #00000010,
-    #00000010,
-    #00000080
-  );
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135;
+.task-list-item::before {
+  @apply hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
+.task-list-item {
+  @apply list-none;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+html {
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  font-family: 'Montserrat', sans-serif;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+html::-webkit-scrollbar {
+  display: none;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.underline-magical {
+  @apply bg-gradient-to-r from-primary-500 to-primary-500 bg-no-repeat 
+  no-underline [background-position:0_100%]
+  [background-size:100%_0.2em] focus:[background-size:100%_100%] hover:text-white
+  hover:[background-size:100%_100%] motion-safe:transition-all
+  motion-safe:duration-300 dark:from-primary-500 dark:to-primary-500;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.horizontal-underline {
+  border-bottom-width: 0;
+  background-image: linear-gradient(transparent, transparent), linear-gradient(#de1d8d, #de1d8d);
+  background-size: 0 3px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s ease-in-out;
+}
+
+.horizontal-underline:hover {
+  background-size: 100% 3px;
+  background-position: 0 100%;
+}
+
+.horizontal-underline-active {
+  background-size: 100% 3px;
+  background-position: 0 100%;
+}
+
+#nprogress .bar {
+  background: #de1d8d !important;
+  height: 4px !important;
+}
+
+.introText {
+  transition: opacity 0.4s;
+}
+
+[cmdk-root] {
+  @apply fixed top-[25vh] left-1/2 z-10 w-full max-w-[640px] 
+  -translate-x-1/2 transform rounded-xl border bg-white p-2 shadow-lg 
+  dark:border-neutral-800 dark:bg-neutral-900 dark:shadow 
+  dark:shadow-neutral-700;
+}
+
+[cmdk-input] {
+  @apply h-12 w-full border-0 border-b border-b-gray-200 
+  bg-transparent text-sm font-semibold
+  text-gray-500 placeholder-gray-500 outline-none focus:border-b focus:border-transparent 
+  focus:border-b-gray-200 focus:ring-0 dark:border-b-gray-500 dark:text-gray-200
+  dark:placeholder-gray-300;
+}
+
+[cmdk-list] {
+  @apply mt-2 max-h-64 overflow-y-scroll px-4 scrollbar-thin
+  scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-track-rounded-lg 
+  scrollbar-thumb-rounded-lg dark:scrollbar-track-neutral-800 
+  dark:scrollbar-thumb-neutral-700;
+}
+
+[cmdk-item] {
+  @apply relative flex h-12 cursor-pointer select-none items-center space-x-3 rounded-md
+  px-4 text-sm font-medium text-gray-700 transition-all duration-200 
+  ease-in dark:text-gray-200;
+}
+
+[cmdk-item][aria-selected='true'] {
+  @apply bg-gray-200 dark:bg-neutral-800;
+}
+
+[cmdk-group-heading] {
+  @apply flex select-none items-center py-1 text-sm 
+  font-medium text-gray-700 dark:text-gray-200;
+}
+
+[cmdk-empty] {
+  @apply flex items-center justify-center py-4 text-sm text-gray-500;
 }
