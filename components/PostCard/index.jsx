@@ -9,7 +9,7 @@ const PostCardComponent = dynamic(
 
 const PostCard = ({ posts }) => {
   return (
-    <div id="comment">
+    <div>
       <PostCardComponent posts={posts} />
     </div>
   )

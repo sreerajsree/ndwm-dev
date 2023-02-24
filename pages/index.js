@@ -9,14 +9,18 @@ import siteMetadata from '@/data/siteMetadata'
 import HomeLayout from '@/layouts/HomeLayout'
 
 
-export async function getServerSideProps() {
+export const getStaticProps = async () => {
   // Fetch data from external API
   const res = await fetch('https://thefashionenthusiast.uk/api/index/data')
   const data = await res.json()
   const posts = data.featured;
 
   // Pass data to the page via props
-  return { props: { posts } }
+  return {
+    props: {
+      posts,
+    },
+  }
 }
 
 export default function Home({ posts }) {
